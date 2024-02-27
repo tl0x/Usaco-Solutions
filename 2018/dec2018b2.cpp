@@ -1,3 +1,6 @@
+// author: taylor
+// finally solved one by myself
+
 #include <iostream>
 #include <set>
 #include <vector>
@@ -32,6 +35,27 @@ void setIO(string name = "") {
 }
 
 int main() {
-    setIO("NameHere");
+    setIO("blist");
     optimize();
+
+    int n; cin >> n;
+    const int MAX_TIME = 1000;
+    vi buckets(MAX_TIME+1, 0);
+
+    for (int i = 0; i < n; i++) {
+        int start, end, amount;
+        cin >> start >> end >> amount;
+
+        buckets[start] += amount;
+        buckets[end] -= amount;
+    }
+
+    int ans = 0;
+    int current = 0;
+    for (int i = 0; i < buckets.size(); i++) {
+        current += buckets[i];
+        ans = max(ans, current);
+    }
+
+    cout << ans << endl;
 }

@@ -12,7 +12,6 @@ using namespace std;
 #pragma GCC target("avx,avx2,fma")
 
 using ll = long long;
-using vi = std::vector<int>;
 
 #define optimize() ios_base::sync_with_stdio(false);cin.tie(NULL);
 #define mod 1000000007;
@@ -32,6 +31,30 @@ void setIO(string name = "") {
 }
 
 int main() {
-    setIO("NameHere");
+    setIO("shuffle");
     optimize();
+
+    int n;
+    cin >> n;
+    vector<int> shuffles(n);
+    vector<int> ids(n);
+    for (int i = 0; i < n; i++) {
+        cin >> shuffles[i];
+    }
+
+    for (int i = 0; i < n; i++) {
+        cin >> ids[i];
+    }
+
+    for (int j = 0; j < 3; j++) {
+        vector<int> shuffled(n);
+        for(int i = 0; i < n; i++) {
+            shuffled[i] = ids[shuffles[i]-1];
+        }
+        ids = shuffled;
+    }
+    
+    for(int i = 0; i < n; i++) {
+        cout << ids[i] << endl;
+    }
 }

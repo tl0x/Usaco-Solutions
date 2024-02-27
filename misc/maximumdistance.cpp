@@ -1,3 +1,6 @@
+// author: taylor
+// solution to this problem : https://codeforces.com/gym/102951/problem/A
+
 #include <iostream>
 #include <set>
 #include <vector>
@@ -34,4 +37,25 @@ void setIO(string name = "") {
 int main() {
     setIO("NameHere");
     optimize();
+
+    int n; cin >> n;
+    vi x(n), y(n);
+
+    for (int i = 0; i < n; i++) {
+        cin >> x[i];
+    }
+
+    for (int &i : y) {
+        cin >> i;
+    }
+
+    int ans = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = i+1; j < n; j++) {
+            int distance = ((x[j]-x[i])*(x[j]-x[i])) + ((y[j]-y[i])*(y[j]-y[i]));
+            ans = max(ans, distance);
+        }
+    }
+
+    cout << ans << endl;
 }

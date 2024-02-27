@@ -1,3 +1,5 @@
+// code by taylor
+
 #include <iostream>
 #include <set>
 #include <vector>
@@ -32,6 +34,21 @@ void setIO(string name = "") {
 }
 
 int main() {
-    setIO("NameHere");
+    setIO("pails");
     optimize();
+
+    int x, y, m; 
+    cin >> x >> y >> m;
+    int ans = 0;
+    for (int i = 0; i < (m/x) + 1; i++) {
+        for (int j = 0; j < (m/y) + 1; j++) { 
+            int value = (x*i) + (y*j);
+            if (value > m) {
+                break;
+            }
+            ans = max(ans, value);
+        }
+    }
+
+    cout << ans << endl;
 }

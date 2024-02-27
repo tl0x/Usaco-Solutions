@@ -1,3 +1,5 @@
+// code by taylor
+
 #include <iostream>
 #include <set>
 #include <vector>
@@ -32,6 +34,23 @@ void setIO(string name = "") {
 }
 
 int main() {
-    setIO("NameHere");
+    setIO("diamond");
     optimize();
+
+    int n, k; cin >> n >> k;
+    vi sizes(n);
+    for (int &i: sizes) {
+        cin >> i;
+    }
+
+    int ans = 0;
+    for (int x : sizes) {
+		int valid = 0;
+		for (int y : sizes) {
+			if (x <= y && y <= x + k) { valid++; }
+		}
+		ans = max(ans, valid);
+	}
+
+    cout << ans << endl;
 }
