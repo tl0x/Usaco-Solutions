@@ -1,83 +1,64 @@
 #include <iostream>
-#include <set>
+#include <string>
 #include <vector>
-#include <iostream>
-#include <iomanip>
 #include <algorithm>
-#include <unordered_map>
+#include <sstream>
+#include <queue>
+#include <deque>
+#include <bitset>
+#include <iterator>
+#include <list>
+#include <stack>
+#include <map>
+#include <set>
+#include <functional>
+#include <numeric>
+#include <utility>
+#include <limits>
+#include <time.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
 
 using namespace std;
 
-#pragma GCC optimize("Ofast")
-#pragma GCC target("avx,avx2,fma")
-
-using ll = long long;
-
-#define optimize() ios_base::sync_with_stdio(false);cin.tie(NULL);
-#define mod 1000000007;
-#define sortcut(x) x.begin(), x.end();
-
-void setIO(string name = "") {
-    if (name == "NameHere") {
-        return;
-    }
-
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
-	if (name.size()) {
-		freopen((name + ".in").c_str(), "r", stdin);
-		freopen((name + ".out").c_str(), "w", stdout);
-	}
-}
 
 int main() {
-    setIO("NameHere");
-    optimize();
+    int N; cin >> N;
+    string cows; cin >> cows;
+    vector<pair<int,int>> intervals;
+    int sz = 0;
+    for (int i = 0; i <= N; i++) {
+        if (i < N && cows[i]=='1') {
+            sz++;
+        } else if (sz > 0) {
+            intervals.push_back({i-sz,i-1});
+            sz = 0;
+        }
+    }
 
-	int x, y;
-	cin >> x >> y;
+    if (intervals.empty()) {
+        cout << 0;
+        return 0;
+    }
 
-	vector<int> zigzag;
+    int D = 1e9; //day FJ reports on the sickness
+    for (pair<int,int> p: intervals) {
+        int x = p.second - p.first + 1; //interval size
+        if (p.first == 0 || p.second == N-1) {
+            D = min(D,x);
+        } else {
+            D = min(D,(x+1)/2);
+        }
+    }
 
-	if (x == y) {
-		cout << 0 << endl;
-	} 
-	else if (x < y) {
-		int dist = 1;
-
-		while (x + dist < y) {
-			zigzag.push_back(x + dist);
-			dist *= -2;
-		}
-
-		zigzag.push_back(x + dist);
-
-		int ans = 1;
-
-		for (int i = 0; i < zigzag.size() -1; i++) { 
-			ans += abs(zigzag[i] - zigzag[i + 1]); 
-		}
-
-		ans -= (zigzag[zigzag.size() - 1] - y);
-		cout << ans << endl;
-	} 
-	else {
-		int dist = 1;
-
-		while (x + dist > y) {
-			zigzag.push_back(x + dist);
-			dist *= -2;
-		}
-
-		zigzag.push_back(x + dist);
-
-		int ans = 1;
-
-		for (int i = 0; i < zigzag.size() -1; i++) {
-			ans += abs(zigzag[i] - zigzag[i + 1]); 
-		}
-
-		ans -= (y - zigzag[zigzag.size() - 1]);
-		cout << ans << endl;
-	}
+    int ans = 0;
+    for (pair<int,int> p: intervals) {
+        int x = p.second - p.first + 1; //interval size
+        int c = (x + 2*D-2)/(2*D-1);
+        ans += c;
+    }
+    cout << ans;
 }

@@ -23,6 +23,8 @@ void setIO(string name = "") {
         return;
     }
 
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
 	if (name.size()) {
 		freopen((name + ".in").c_str(), "r", stdin);
 		freopen((name + ".out").c_str(), "w", stdout);
@@ -32,4 +34,6 @@ void setIO(string name = "") {
 int main() {
     setIO("NameHere");
     optimize();
+
+    
 }

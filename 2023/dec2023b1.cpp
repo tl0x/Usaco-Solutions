@@ -32,4 +32,27 @@ void setIO(string name = "") {
 int main() {
     setIO("NameHere");
     optimize();
+
+    int n, m; cin >> n >> m;
+    ll heights[n];
+    for (int i = 0; i < n; i++) {
+        cin >> heights[i];
+    }
+
+    for (int _ = 0; _ < m; _++) {
+        int candy_cane; cin >> candy_cane;
+        int amount_taken = 0;
+        for (int i = 0; i < n; i++) {
+            int increment = max(0, (int)min((ll)candy_cane, heights[i])-amount_taken);
+            heights[i] += increment;
+            amount_taken += increment;
+            if (amount_taken >= candy_cane) {
+                break;
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << heights[i] << "\n";
+    }
 }
